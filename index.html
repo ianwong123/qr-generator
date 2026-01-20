@@ -185,9 +185,11 @@
                 <li><strong>Email the label and photo to:</strong> Ianwong2111@gmail.com</li>
                 
                 <li style="margin-top: 10px; color: #d00;">
-                    <strong>Important:</strong> The QR code is unique to the exact filename. Even a small change (e.g. <code>foo-bar.jpg</code> vs <code>foobar.jpg</code>) creates a different code. 
-                    Do not change the filename or re-generate the QR code after you email it, otherwise <strong>the printed QR will not work</strong>.
-                    When scanned, the link will start with <code>ianwong123.github.io...</code>. This is normal and cannot be changed because we do not have a custom domain.
+                    <strong>Important:</strong> If you plan to link to a photo, the QR code is unique to the exact filename. Even a small change (e.g. <code>foo-bar.jpg</code> vs <code>foobar.jpg</code>) creates a completely
+                    different QR code. 
+                    Do not change the filename or re-generate the QR code after you email it, otherwise <strong>the printed QR will not work</strong>. Your QR code will start working
+                    only after we upload the file on our end.
+                    When scanned, <strong>Any Photo</strong> URLs specifically will start with <code>ianwong123.github.io...</code>. This is normal and cannot be changed because we do not have a custom domain.
                 </li>
             </ul>
         </div>
@@ -209,11 +211,12 @@
     </div>
 
     <div id="sec-photo" class="section">
-        <label>Enter Filename (e.g., batch-01.jpg):</label>
-        <input type="text" id="input-filename" placeholder="batch-april.jpg" oninput="updateView()">
+        <label>Enter Filename (e.g., april.jpg):</label>
+        <input type="text" id="input-filename" placeholder="april.jpg" oninput="updateView()">
         <span class="help">
-            The image will be stored on the target server.
-        </span>
+            <strong>Reminder:</strong> Must include the extension (e.g., .jpg) and ensure the filename matches your actual photo file exactly, including capital letters. 
+            The image will be stored on the target server. <strong>If the filename does not match exactly, 
+                scanning the QR code will show a '404 Not Found' error - even after the photo is added on our end.</strong>        </span>
         <div style="background: #eee; padding: 5px; font-size: 12px; margin-top:10px; font-family: monospace;">
             Target: <span id="preview-url">...</span>
         </div>
@@ -221,7 +224,7 @@
 
     <div style="border: 1px solid #000; padding: 20px; margin-bottom: 20px;">
         <label>Label Text (Appears on PDF/Print):</label>
-        <input type="text" id="input-label" placeholder="e.g. CC COATED (Optional)" oninput="updateView()">
+        <input type="text" id="input-label" placeholder="e.g. FOOBAR (Optional)" oninput="updateView()">
     </div>
 
     <div id="qr-container">
