@@ -8,3 +8,5 @@ After generating a QR code, you can:
 1. Download it as a pdf
 2. Print the label directly
 
+QR Generator tool: https://ianwong123.github.io/qr-generator/
+

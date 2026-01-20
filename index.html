@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Generator</title>
+    <title>QR Generator Tool</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
+        /* --- BORING DESIGN SYSTEM --- */
         body { 
             font-family: monospace; 
             max-width: 600px; 
@@ -23,12 +24,20 @@
         .instructions {
             background: #f4f4f4;
             border: 1px solid #000;
-            padding: 15px;
-            margin-bottom: 25px;
-            font-size: 13px;
-            line-height: 1.5;
+            padding: 20px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.6;
         }
         .instructions strong { text-decoration: underline; }
+        .step-block { margin-bottom: 15px; }
+        .note-block { 
+            margin-top: 15px; 
+            padding-top: 15px; 
+            border-top: 1px dashed #999; 
+            font-style: italic; 
+            color: #444;
+        }
         
         /* TABS */
         .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
@@ -104,11 +113,6 @@
         
         .download-btn { background: #000; color: #fff; }
         .download-btn:hover { opacity: 0.8; }
-        
-        .email-btn { background: #fff; color: #000; border: 2px solid #000; }
-        .email-btn:hover { background: #f0f0f0; }
-
-        .hidden { display: none !important; }
 
         /* --- PRINT OUTPUT --- */
         @media print {
@@ -160,8 +164,9 @@
                 <li><strong>Email the photo to:</strong> Ianwong2111@gmail.com</li>
                 
                 <li style="margin-top: 10px; color: #d00;">
-                    <strong>Important:</strong> The QR code is unique to the exact filename. Even a small change (e.g. <code>foo-bar.jpg</code> vs <code>foobar.jpg</code>) creates a different code. 
+                    <strong>Important:</strong> The QR code is unique to the exact filename or link. Even a small change (e.g. <code>foo-bar.jpg</code> vs <code>foobar.jpg</code>) creates a different code. 
                     Do not change the filename or re-generate the QR code after you email it, otherwise <strong>the printed QR will not work</strong>.
+                    When scanned, the link will start with <code>ianwong123.github.io...</code>. This is normal and cannot be changed because we do not have a custom domain.
                 </li>
             </ul>
         </div>
@@ -205,7 +210,6 @@
         <div class="action-row">
             <button class="btn-action print-btn" onclick="printPage()">PRINT LABEL</button>
             <button class="btn-action download-btn" onclick="downloadPDF()">DOWNLOAD PDF</button>
-            <!-- <a id="email-btn" href="#" class="btn-action email-btn hidden">EMAIL PHOTO</a> -->
         </div>
     </div>
 
@@ -220,15 +224,12 @@
             document.getElementById('sec-' + mode).classList.add('visible');
             document.getElementById('btn-' + mode).classList.add('active');
             
-            const emailBtn = document.getElementById('email-btn');
-            if(mode === 'photo') {
-                emailBtn.classList.remove('hidden');
-            } else {
-                emailBtn.classList.add('hidden');
-            }
-            
+            // Clear outputs
             document.getElementById("qr-code").innerHTML = "";
             document.getElementById("label-display").innerText = "";
+            document.getElementById("input-url").value = ""; // Optional: Clear inputs when switching
+            document.getElementById("input-filename").value = "";
+            
             updateView();
         }
 
@@ -249,10 +250,6 @@
                 if (filename) {
                     finalUrl = REPO_BASE + filename;
                     document.getElementById("preview-url").innerText = finalUrl;
-                    
-                    const subject = encodeURIComponent("Upload Request: " + filename);
-                    const body = encodeURIComponent("Hi,\n\nPlease upload attached photo.\nFilename: " + filename);
-                    document.getElementById("email-btn").href = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`;
                 }
             } else {
                 finalUrl = document.getElementById("input-url").value;
@@ -314,5 +311,3 @@
     </script>
 </body>
 </html>
-
-
